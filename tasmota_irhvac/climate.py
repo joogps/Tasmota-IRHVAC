@@ -612,7 +612,7 @@ class TasmotaIrhvac(ClimateDevice, RestoreEntity):
                     if self._swing_vertical != previous_swing:
                         self._swing_mode = self._swing_vertical
                         if self._swing_list[SWING_VERTICAL] and self._swing_list[SWING_HORIZONTAL]:
-                            self._swing_mode = "vertical " + self._swing_vertical
+                            self._swing_mode = "{} {}".format(SWING_VERTICAL, self._swing_vertical)
                             _LOGGER.error(self._swing_mode)
                             if self._swing_vertical == SWING_OFF and self._swing_horizontal == SWING_OFF:
                                 self._swing_mode = SWING_OFF
@@ -624,7 +624,7 @@ class TasmotaIrhvac(ClimateDevice, RestoreEntity):
                     if self._swing_horizontal != previous_swing:
                         self._swing_mode = self._swing_horizontal
                         if self._swing_list[SWING_VERTICAL] and self._swing_list[SWING_HORIZONTAL]:
-                            self._swing_mode = "horizontal " + self._swing_horizontal
+                            self._swing_mode = "{} {}".format(SWING_HORIZONTAL, self._swing_horizontal)
                             if self._swing_vertical == SWING_OFF and self._swing_horizontal == SWING_OFF:
                                 self._swing_mode = SWING_OFF
                             if self._swing_vertical == SWING_VERTICAL_AUTO and self._swing_horizontal == SWING_HORIZONTAL_AUTO:
@@ -801,8 +801,8 @@ class TasmotaIrhvac(ClimateDevice, RestoreEntity):
             swing_list.append(SWING_BOTH)
         
         if swing_vertical and swing_horizontal:
-            swing_vertical = ["vertical " + s for s in swing_vertical]
-            swing_horizontal = ["horizontal " + s for s in swing_horizontal]
+            swing_vertical = ["{} {}".format(SWING_VERTICAL, s) for s in swing_vertical]
+            swing_horizontal = ["{} {}".format(SWING_HORIZONTAL, s) for s in swing_horizontal]
         
         swing_list.extend(swing_vertical)
         swing_list.extend(swing_horizontal)
